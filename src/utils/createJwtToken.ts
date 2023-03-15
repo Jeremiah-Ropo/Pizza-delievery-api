@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 export type JwtPayload = {
   id: string;
-  contact?: string;
+  email?: string;
   role?: string;
 };
 
@@ -12,8 +12,9 @@ export const createUserJwtToken = (payload: JwtPayload): string => {
   });
 };
 
-export const createStaffJwtToken = (payload: JwtPayload): string => {
-  return jwt.sign(payload, process.env.STAFF_JWT_SECRET!, {
+export const createAdminJwtToken = (payload: JwtPayload): string => {
+  return jwt.sign(payload, process.env.ADMIN_JWT_SECRET!, {
     expiresIn: 172800,
   });
 };
+

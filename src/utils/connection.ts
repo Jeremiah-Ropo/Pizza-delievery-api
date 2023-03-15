@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 let gracefulShutdown;
-var dbURI = process.env.DATABASE_URI
+var dbURI = process.env.DATABASE_URL
 mongoose.connect(dbURI);
 mongoose.connection.on('connected', function () {
   console.log('Mongoose connected to '+dbURI );

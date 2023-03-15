@@ -23,82 +23,21 @@ export const checkUserJwt = (req: Request, res: Response, next: NextFunction) =>
   }
 };
 
-export const checkStaffJwt = (req: Request, res: Response, next: NextFunction) => {
-  const authHeader = req.get('Authorization');
-  if (!authHeader) {
-    const customError = new CustomError(400, 'General', 'Authorization header not provided');
-    return next(customError);
+export const checkAdminJwt = (req:Request, res:Response, next:NextFunction) => {
+  const authHeader = req.get("Authorization");
+  if(!authHeader){
+    return next(new CustomError(400, "General", 'Authorization header not provided'));
   }
-
   const token = authHeader.split(' ')[1];
-  let jwtPayload: { [key: string]: any };
-  try {
-    jwtPayload = jwt.verify(token, process.env.STAFF_JWT_SECRET as string) as { [key: string]: any };
+
+  let jwtPayload: {[key: string]: any};
+  try{
+    jwtPayload = jwt.verify(token, process.env.ADMIN_JWT_SECRET as string) as {[key:string]:any};
     req.jwtPayload = jwtPayload as JwtPayload;
-    switch (req.baseUrl) {
-      case '/hr':
-        if (req.jwtPayload.role != 'HR') {
-          return next(
-            new CustomError(401, 'Raw', 'JWT error', ["You don't have authorisation to access this resource"]),
-          );
-        }
-        break;
-      case '/crm':
-        if (req.jwtPayload.role != 'CRM') {
-          return next(
-            new CustomError(401, 'Raw', 'JWT error', ["You don't have authorisation to access this resource"]),
-          );
-        }
-        break;
-      case '/operations':
-        if (req.jwtPayload.role != 'OPERATIONS') {
-          return next(
-            new CustomError(401, 'Raw', 'JWT error', ["You don't have authorisation to access this resource"]),
-          );
-        }
-        break;
-      case '/warehouse':
-        switch (req.path) {
-          case '/add-warehouse':
-            if (req.jwtPayload.role != 'HEAD-WAREHOUSE') {
-              return next(
-                new CustomError(401, 'Raw', 'JWT error', ["You don't have authorisation to access this resource"]),
-              );
-            }
-            break;
-          case '/dashboard':
-            if (req.jwtPayload.role != 'HEAD-WAREHOUSE') {
-              return next(
-                new CustomError(401, 'Raw', 'JWT error', ["You don't have authorisation to access this resource"]),
-              );
-            }
-            break;
-          case '/location':
-            if (req.jwtPayload.role != 'HEAD-WAREHOUSE') {
-              return next(
-                new CustomError(401, 'Raw', 'JWT error', ["You don't have authorisation to access this resource"]),
-              );
-            }
-            break;
-          case '/name':
-            if (req.jwtPayload.role != 'HEAD-WAREHOUSE') {
-              return next(
-                new CustomError(401, 'Raw', 'JWT error', ["You don't have authorisation to access this resource"]),
-              );
-            }
-            break;
-          default:
-            if (!['HEAD-WAREHOUSE', 'WAREHOUSE'].includes(req.jwtPayload.role)) {
-              return next(
-                new CustomError(401, 'Raw', 'JWT error', ["You don't have authorisation to access this resource"]),
-              );
-            }
-        }
-        break;
-    }
     next();
-  } catch (err) {
-    const customError = new CustomError(401, 'Raw', 'JWT error', null, err);
-    return next(customError);
+  }catch(error){
+    return next(new CustomError(401, "Raw", 'JWT error', ["You don't have authorization to access this resource"]))
   }
-};
+}
+
+

@@ -62,3 +62,5 @@
 ::1 - - [18/Mar/2023:22:57:49 +0000] "GET /auth/ HTTP/1.1" 200 405 "-" "PostmanRuntime/7.31.1"
 ::1 - - [18/Mar/2023:23:05:37 +0000] "PATCH /pizza/update/6410ed70ad5c4928fa9ab77d HTTP/1.1" 200 222 "-" "PostmanRuntime/7.31.1"
 ::1 - - [18/Mar/2023:23:06:45 +0000] "GET /pizza HTTP/1.1" 200 1346 "-" "PostmanRuntime/7.31.1"
+::1 - - [18/Mar/2023:23:10:36 +0000] "POST /auth/place-order HTTP/1.1" 200 63 "-" "PostmanRuntime/7.31.1"
+::1 - - [18/Mar/2023:23:11:07 +0000] "POST /auth/pay HTTP/1.1" 200 73 "-" "PostmanRuntime/7.31.1"

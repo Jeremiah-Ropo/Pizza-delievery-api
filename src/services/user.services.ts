@@ -34,7 +34,7 @@ class UserService {
                 return next(new CustomError(400, "General", "User not allowed"))
             }
 
-            const update = await UserModel.findByIdAndUpdate({ _id: user._id }, { payload }, { new: true });
+            const update = await UserModel.findByIdAndUpdate({ _id: user._id }, payload , { new: true });
             delete update.token;
             return update;
         } catch (error) {

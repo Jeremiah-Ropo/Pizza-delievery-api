@@ -13,7 +13,7 @@ database/*
 .env
 # log/*
 !log/.gitkeep 
-*.log
+# *.log
 dist
 # keep config folder with env files ONLY for demo purposes
 # config/

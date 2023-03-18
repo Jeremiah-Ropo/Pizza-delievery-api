@@ -24,6 +24,16 @@ class PizzaService {
         }
     }
 
+    async all(next: NextFunction) {
+        try {
+            let pizzas = await PizzaModel.find({});
+           
+            return { data: pizzas};
+        } catch (error) {
+            return next(new CustomError(400, "Raw", "Can't Fetch", null, error))
+        }
+    }
+
     async update(id: any, payload: any, image:any, next: NextFunction) {
         try {
             let pizza = await PizzaModel.findById(id);

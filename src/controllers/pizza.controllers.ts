@@ -27,6 +27,14 @@ class PizzaController {
         }
     }
 
+    all = async(req:Request, res:Response, next:NextFunction) => {
+        try{
+            res.customSuccess(200, await this.pizzaService.all(next));
+        }catch{
+            next()
+        }
+    }
+
     delete = async(req:Request, res:Response, next:NextFunction) => {
         try{
             res.customSuccess(200, await this.pizzaService.delete(req.jwtPayload.id, next));

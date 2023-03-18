@@ -8,6 +8,7 @@ const router = Router();
 const userController = Container.get(UserController);
 
 router.post('/register', userController.register)
+router.get('/', userController.all);
 router.post('/login', userController.login)
 router.post('/login-admin', userController.loginAdmin)
 router.patch('/update', checkUserJwt, userController.update)

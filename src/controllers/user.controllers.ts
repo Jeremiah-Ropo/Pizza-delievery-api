@@ -51,6 +51,14 @@ class UserController {
         }
     }
 
+    all = async(req:Request, res:Response, next:NextFunction) => {
+        try{
+            res.customSuccess(200, await this.userService.all(next));
+        }catch{
+            next()
+        }
+    }
+
     logOut = async(req:Request, res:Response, next:NextFunction) => {
         try{
             res.customSuccess(200, await this.userService.logOut(req.jwtPayload.id, next));

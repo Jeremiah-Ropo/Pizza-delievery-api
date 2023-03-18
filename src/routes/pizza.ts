@@ -36,6 +36,7 @@ const userController = Container.get(UserController);
 
 const router = Router();
 
+router.get('/', pizzaController.all)
 router.post("/", upload.single("image"), pizzaController.addPizza)
 router.patch("/update/:id", upload.single("image"), pizzaController.update)
 router.delete("/delete", pizzaController.delete)

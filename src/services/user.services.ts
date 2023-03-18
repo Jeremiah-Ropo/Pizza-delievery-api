@@ -119,7 +119,7 @@ class UserService {
 
             user.order.push(order._id);
             await user.save();
-            return { message: "Added to cart" }
+            return { message: "Added to cart", cartId: order._id }
         } catch (error) {
             return next(new CustomError(400, "Raw", "Something went wrong", null, error))
         }
@@ -168,14 +168,22 @@ class UserService {
                         "Content-Type": 'application/json'
                     }
                 })
-                console.log(data)
+                
             return { Payment_checkout_link: data.data.authorization_url }
         } catch (error) {
             return next(new CustomError(400, "Raw", "Can't create cart", null, error))
         }
     }
 
-
+    async all(next: NextFunction) {
+        try {
+            let user = await UserModel.find({});
+            
+            return { data: user};
+        } catch (error) {
+            return next(new CustomError(400, "Raw", "Can't Fetch", null, error))
+        }
+    }
 
     async delete(id: any, next: NextFunction) {
         try {
